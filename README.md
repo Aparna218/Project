@@ -9,11 +9,29 @@ Repository for backend cohort - Lithium
 ### Models
 - Author Model
 ```
-{ fname: { mandatory}, lname: {mandatory}, title: {mandatory, enum[Mr, Mrs, Miss]}, email: {mandatory, valid email, unique}, password: {mandatory} }
+{ fname: { mandatory}, 
+lname: {mandatory}, 
+title: {mandatory, 
+enum[Mr, Mrs, Miss]}, 
+email: {mandatory, valid email, unique}, 
+password: {mandatory} }
 ```
 - Blogs Model
 ```
-{ title: {mandatory}, body: {mandatory}, authorId: {mandatory, refs to author model}, tags: {array of string}, category: {string, mandatory}, subcategory: {array of string, examples[technology-[web development, mobile development, AI, ML etc]] }, createdAt, updatedAt, deletedAt: {when the document is deleted}, isDeleted: {boolean, default: false}, publishedAt: {when the blog is published}, isPublished: {boolean, default: false}}
+{ title: {mandatory},
+body: {mandatory}, 
+authorId: {mandatory, 
+refs to author model}, 
+tags: {array of string}, 
+category: {string, mandatory}, 
+subcategory: {array of string, 
+examples[technology-[web development, 
+mobile development, AI, ML etc]] }, 
+createdAt, updatedAt, 
+deletedAt: {when the document is deleted}, 
+isDeleted: {boolean, default: false}, 
+publishedAt: {when the blog is published}, 
+isPublished: {boolean, default: false}}
 ```
 
 ### Author APIs /authors
@@ -24,7 +42,8 @@ Repository for backend cohort - Lithium
 ### POST /blogs
 - Create a blog document from request body. Get authorId in request body only.
 - Make sure the authorId is a valid authorId by checking the author exist in the authors collection.
-- Return HTTP status 201 on a succesful blog creation. Also return the blog document. The response should be a JSON object like [this](#successful-response-structure) 
+- Return HTTP status 201 on a succesful blog creation. Also return the blog document. 
+The response should be a JSON object like [this](#successful-response-structure) 
 - Create atleast 5 blogs for each author
 
 - Return HTTP status 400 for an invalid request with a response body like [this](#error-response-structure)
@@ -41,9 +60,12 @@ Repository for backend cohort - Lithium
 example of a query url: blogs?filtername=filtervalue&f2=fv2
 
 ### PUT /blogs/:blogId
-- Updates a blog by changing the its title, body, adding tags, adding a subcategory. (Assuming tag and subcategory received in body is need to be added)
+- Updates a blog by changing the its title, body, adding tags, adding a subcategory. 
+(Assuming tag and subcategory received in body is need to be added)
 - Updates a blog by changing its publish status i.e. adds publishedAt date and set published to true
-- Check if the blogId exists (must have isDeleted false). If it doesn't, return an HTTP status 404 with a response body like [this](#error-response-structure)
+- Check if the blogId exists
+(must have isDeleted false). 
+If it doesn't, return an HTTP status 404 with a response body like [this](#error-response-structure)
 - Return an HTTP status 200 if updated successfully with a body like [this](#successful-response-structure) 
 - Also make sure in the response you return the updated blog document. 
 
@@ -60,11 +82,13 @@ example of a query url: blogs?filtername=filtervalue&f2=fv2
 - Add authentication and authroisation feature
 
 ### POST /login
-- Allow an author to login with their email and password. On a successful login attempt return a JWT token contatining the authorId in response body like [this](#Successful-login-Response-structure)
+- Allow an author to login with their email and password.
+On a successful login attempt return a JWT token contatining the authorId in response body like [this](#Successful-login-Response-structure)
 - If the credentials are incorrect return a suitable error message with a valid HTTP status code
 
 ### Authentication
-- Add an authorisation implementation for the JWT token that validates the token before every protected endpoint is called. If the validation fails, return a suitable error message with a corresponding HTTP status code
+- Add an authorisation implementation for the JWT token that validates the token before every protected endpoint is called. 
+If the validation fails, return a suitable error message with a corresponding HTTP status code
 - Protected routes are create a blog, edit a blog, get the list of blogs, delete a blog(s)
 - Set the token, once validated, in the request - `x-api-key`
 - Use a middleware for authentication purpose.
